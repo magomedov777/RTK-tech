@@ -47,9 +47,11 @@ export const Login = () => {
         .unwrap()
         .catch((err: ResponseType) => {
           // formikHelpers.setFieldError(res.fieldsErrors[0].field, res.fieldsErrors[0].error)
-          err.fieldsErrors.forEach((el) => {
-            formikHelpers.setFieldError(el.field, el.error)
-          })
+          if (err.fieldsErrors) {
+            err.fieldsErrors.forEach((el) => {
+              formikHelpers.setFieldError(el.field, el.error)
+            })
+          }
         })
     },
   })
