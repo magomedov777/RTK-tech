@@ -35,39 +35,31 @@ export const TodolistsList = () => {
     fetchTodolists()
   }, [])
 
-  const removeTaskCB = useCallback(function (taskId: string, todolistId: string) {
+  const removeTaskCB = useCallback((taskId: string, todolistId: string) => {
     removeTask({ taskId, todolistId })
   }, [])
 
-  const addTaskCB = useCallback(function (title: string, todolistId: string) {
+  const addTaskCB = useCallback((title: string, todolistId: string) => {
     addTask({ title, todolistId })
   }, [])
 
-  const changeStatus = useCallback(function (
-    taskId: string,
-    status: TaskStatuses,
-    todolistId: string,
-  ) {
+  const changeStatus = useCallback((taskId: string, status: TaskStatuses, todolistId: string) => {
     updateTask({ taskId, domainModel: { status }, todolistId })
   }, [])
 
-  const changeTaskTitleCB = useCallback(function (
-    taskId: string,
-    title: string,
-    todolistId: string,
-  ) {
+  const changeTaskTitleCB = useCallback((taskId: string, title: string, todolistId: string) => {
     updateTask({ taskId, domainModel: { title }, todolistId })
   }, [])
 
-  const changeFilterCB = useCallback(function (filter: FilterValuesType, id: string) {
+  const changeFilterCB = useCallback((filter: FilterValuesType, id: string) => {
     changeTodolistFilter({ id, filter })
   }, [])
 
-  const removeTodolistCB = useCallback(function (id: string) {
+  const removeTodolistCB = useCallback((id: string) => {
     removeTodolist(id)
   }, [])
 
-  const changeTodolistTitleCB = useCallback(function (id: string, title: string) {
+  const changeTodolistTitleCB = useCallback((id: string, title: string) => {
     changeTodolistTitle({ id, title })
   }, [])
 

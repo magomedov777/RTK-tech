@@ -19,23 +19,33 @@ import { selectIsLoggedIn } from 'features/auth/auth.selectors'
 import { authThunks } from 'features/auth/auth.reducer'
 import { ResponseType } from 'common/types'
 
+// type FormValues = Pick<LoginParamsType, 'email' | 'password' | 'rememberMe'>
+type FormValues = Omit<LoginParamsType, 'captcha'>
+
+type LoginParamsType = {
+  email: string
+  password: string
+  rememberMe: boolean
+  captcha?: string
+}
+
 export const Login = () => {
   const dispatch = useAppDispatch()
 
   const isLoggedIn = useSelector(selectIsLoggedIn)
 
   const formik = useFormik({
-    validate: (values) => {
-      // if (!values.email) {
-      //   return {
-      //     email: 'Email is required',
-      //   }
-      // }
-      // if (!values.password) {
-      //   return {
-      //     password: 'Password is required',
-      //   }
-      // }
+    validate: (values: FormValues) => {
+      if (!values.email) {
+        return {
+          email: 'Email is required',
+        }
+      }
+      if (!values.password) {
+        return {
+          password: 'Password is required',
+        }
+      }
     },
     initialValues: {
       email: '',

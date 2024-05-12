@@ -2,7 +2,6 @@ import { instance } from 'common/api/common.api'
 import { TaskPriorities, TaskStatuses } from 'common/enums/common.enums'
 import { UpdateDomainTaskModelType } from 'features/TodolistsList/tasks.reducer'
 import { ResponseType } from 'common/types/common.types'
-import { FilterValuesType } from './todolists.reducer'
 
 export const todolistsApi = {
   getTodolists() {
@@ -17,9 +16,7 @@ export const todolistsApi = {
   updateTodolist(arg: UpdateTodolistTitleArgType) {
     return instance.put<ResponseType>(`todo-lists/${arg.id}`, { title: arg.title })
   },
-  changeTodolistFilter(arg: UpdateTodolistFilterArgType) {
-    return instance.put<ResponseType>(`todo-lists/${arg.id}`, { filter: arg.filter })
-  },
+
   getTasks(todolistId: string) {
     return instance.get<GetTasksResponse>(`todo-lists/${todolistId}/tasks`)
   },
@@ -93,9 +90,4 @@ export type RemoveTaskArgType = {
 export type UpdateTodolistTitleArgType = {
   id: string
   title: string
-}
-
-export type UpdateTodolistFilterArgType = {
-  id: string
-  filter: FilterValuesType
 }
