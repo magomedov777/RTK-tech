@@ -3,7 +3,6 @@ import { appActions, RequestStatusType } from 'app/app.reducer'
 import {
   todolistsApi,
   TodolistType,
-  UpdateTodolistFilterArgType,
   UpdateTodolistTitleArgType,
 } from 'features/TodolistsList/todolists.api'
 import { createAppAsyncThunk, handleServerAppError, handleServerNetworkError } from 'common/utils'
@@ -86,27 +85,6 @@ const changeTodolistTitle = createAppAsyncThunk<
   }
 })
 
-const changeTodolistFilter = createAppAsyncThunk<
-  UpdateTodolistFilterArgType,
-  UpdateTodolistFilterArgType
->('todo/changeTodolistFilter', async (arg, thunkAPI) => {
-  const { dispatch, rejectWithValue } = thunkAPI
-  try {
-    dispatch(appActions.setAppStatus({ status: 'loading' }))
-    const res = await todolistsApi.changeTodolistFilter(arg)
-    if (res.data.resultCode === ResultCode.Success) {
-      dispatch(appActions.setAppStatus({ status: 'succeeded' }))
-      return arg
-    } else {
-      handleServerAppError(res.data, dispatch)
-      return rejectWithValue(null)
-    }
-  } catch (e) {
-    handleServerNetworkError(e, dispatch)
-    return rejectWithValue(null)
-  }
-})
-
 const initialState: TodolistDomainType[] = []
 
 const slice = createSlice({
@@ -172,7 +150,6 @@ export const todolistsThunks = {
   addTodolist,
   removeTodolist,
   changeTodolistTitle,
-  changeTodolistFilter,
 }
 
 // types
